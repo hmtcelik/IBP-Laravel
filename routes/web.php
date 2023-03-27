@@ -14,8 +14,21 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{ 
+    Route::get('/login', 'LoginController@show' )->name('login.show');
+    Route::post('/login', 'LoginController@login')->name('login.perform');
 
-Route::resource('products', ProductController::class);
+    Route::group(['middleware' => ['auth']], function() {
+
+        Route::get('/', function () {
+            return view('welcome');
+        });
+        
+        Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
+        Route::resource('products', ProductController::class);
+
+    });
+    
+});
