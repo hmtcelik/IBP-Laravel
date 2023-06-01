@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         });
         
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+        
+        Route::get('/products', 'ProductController@index')->name('products');
+        Route::get('/products/new', 'ProductController@create')->name('new_product');
+        Route::post('/products/store', 'ProductController@store')->name('save_product');
 
-        Route::resource('products', ProductController::class);
-
+        Route::get('/messages', 'MessageController@index')->name('messages');
+        Route::post('/messages/new', 'MessageController@store')->name('save_message');
     });
-    
+
 });

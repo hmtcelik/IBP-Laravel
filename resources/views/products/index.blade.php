@@ -13,7 +13,7 @@
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
                     <div class="pull-right mb-2">
-                        <a class="btn btn-success" href="{{ route('products.create') }}">Create Product</a>
+                        <a class="btn btn-success" href="{{ route('new_product') }}">Create Product</a>
                     </div>
                 </div>
             </div>

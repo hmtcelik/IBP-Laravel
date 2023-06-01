@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id','desc')->paginate(5);
+        $products = Product::orderBy('id','desc')->get();
         return view('products.index', compact('products'));
     }
 
@@ -32,7 +32,7 @@ class ProductController extends Controller
             'price' => $request->input('price'), 
         ]);
         
-        return redirect()->route('products.index')->with('success','Product has been created successfully.');
+        return redirect()->route('products')->with('success','Product has been created successfully.');
     }
 
 }

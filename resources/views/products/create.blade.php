@@ -21,7 +21,7 @@
             {{ session('status') }}
         </div>
         @endif
-        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="mt-3">
+        <form action="{{ route('save_product') }}" method="POST" enctype="multipart/form-data" class="mt-3">
             @csrf
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-4">
-                    <a class="btn btn-danger" href="{{ route('products.index') }}">Cancel</a>
+                    <a class="btn btn-danger" href="{{ route('products') }}">Cancel</a>
                     <button type="submit" class="btn btn-primary ml-3">Submit</button> 
                 </div>
             </div>
