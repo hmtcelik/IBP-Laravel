@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class MessageController extends Controller
 {
     public function index(Request $request)
     {
-        $messages = Message::orderBy('id','desc')->get();
+        $messages = Message::orderBy('id')->get();
         return view('messages.index', compact('messages'));
     }
 
@@ -21,9 +22,11 @@ class MessageController extends Controller
             'message' => 'required'
         ]);
 
+        $user = User::where('email', '!=' ,$request->input('from'))->first();
+
         Message::create([
             'from' => $request->input('from'),
-            'to' => $request->input('to'), 
+            'to' => $user->email, 
             'message' => $request->input('message'), 
         ]);
         

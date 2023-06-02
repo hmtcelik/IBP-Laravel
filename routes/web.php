@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::group(['middleware' => ['auth']], function() {
 
-        Route::get('/', function () {
-            return view('welcome');
-        });
+        Route::get('/', 'DashboardController@base_router')->name('base');
         
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
         
@@ -34,6 +33,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::get('/messages', 'MessageController@index')->name('messages');
         Route::post('/messages/new', 'MessageController@store')->name('save_message');
-    });
 
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::get('/dashboard/products', 'DashboardController@products')->name('dashboard_products');
+        Route::post('/dashboard/products/delete', 'DashboardController@product_delete')->name('dashboard_delete');
+    });
 });

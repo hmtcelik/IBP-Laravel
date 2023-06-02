@@ -67,6 +67,11 @@
                 @endforelse
             </div>
         </section>
+        @if (Auth::user()->role == 'admin')
+        <div class="mt-4">
+         <button type='button' onclick="location.href=&#34;{{ route('dashboard_products') }}&#34;" class="btn btn-primary">Go To Products in Dashboard</button>
+        </div>
+        @endif
     </div>
 </body>
 </html>

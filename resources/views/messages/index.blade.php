@@ -25,32 +25,43 @@
           </div>
           <div class="card-body">
 
-            <div class="d-flex flex-row justify-content-start mb-4">
-              <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                alt="avatar 1" style="width: 45px; height: 100%;">
-              <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                <b>you</b>
-                <p class="small mb-0">Hello and thank you for visiting MDBootstrap. Please click the video
-                  below.</p>
-              </div>
-            </div>
+            @forelse ($messages as $m)
+              @if ($m->from == Auth::user()->email)
+                <div class="d-flex flex-row justify-content-start mb-4">
+                  <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    alt="avatar 1" style="width: 45px; height: 100%;">
+                  <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                    <b>You</b>
+                    <p class="small mb-0">
+                      {{ $m->message }}
+                    </p>
+                  </div>
+                </div>
+              @else
+                <div class="d-flex flex-row justify-content-end mb-4">
+                  <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                  <b>{{ $m->from }}</b>
+                  <p class="small mb-0">
+                    {{ $m->message }}
+                  </p>
+                  </div>
+                  <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    alt="avatar 1" style="width: 45px; height: 100%;">
+                </div>
+              @endif
+            @empty
+            @endforelse
 
-            <div class="d-flex flex-row justify-content-end mb-4">
-              <div class="p-3 me-3 border" style="border-radius: 15px; background-color: #fbfbfb;">
-                <b>user</b>
-                <p class="small mb-0">Thank you, I really like your product.</p>
-              </div>
-              <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                alt="avatar 1" style="width: 45px; height: 100%;">
-            </div>
+
+
 
             <form action="{{ route('save_message') }}" method="POST" enctype="multipart/form-data" class="form-outline">
-                <input type="text" name="to" class="form-control" placeholder="Product Title" hidden value="">
-                <input type="text" name="from" class="form-control" placeholder="Product Title" hidden value="">
-                <textarea class="form-control" id="message" rows="4"></textarea>
-                <button class="btn btn-success mt-2 float-right">Send Message</button>
+              @csrf
+              <input type="text" name="from" class="form-control" placeholder="Product Title" hidden value="{{ Auth::user()->email }}">
+                <input type="text" name="to" class="form-control" placeholder="Product Title" hidden value="-1">
+                <textarea class="form-control" id="message" name="message" rows="4"></textarea>
+                <button class="btn btn-success mt-2 float-right" type="submit" >Send Message</button>
             </div>
-
           </div>
         </div>
 
