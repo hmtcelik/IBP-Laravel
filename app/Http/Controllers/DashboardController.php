@@ -16,7 +16,7 @@ class DashboardController extends Controller
                 return redirect()->route('dashboard');
             }
             else{
-                return view('welcome');
+                return redirect()->route('products');
             }
         }
     }

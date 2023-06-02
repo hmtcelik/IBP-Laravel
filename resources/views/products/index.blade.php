@@ -67,11 +67,15 @@
                 @endforelse
             </div>
         </section>
+        <div class="mt-5">
         @if (Auth::user()->role == 'admin')
-        <div class="mt-4">
          <button type='button' onclick="location.href=&#34;{{ route('dashboard_products') }}&#34;" class="btn btn-primary">Go To Products in Dashboard</button>
+         @else
+        <button type='button' onclick="location.href=&#34;{{ route('messages') }}&#34;" class="btn btn-primary">Send Message To Admin</button>
+        <br>
+         <button class="mt-4 btn btn-danger" type='button' onclick="location.href=&#34;{{ route('logout.perform') }}&#34;">Logout</button>
+         @endif
         </div>
-        @endif
     </div>
 </body>
 </html>
